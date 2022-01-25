@@ -10,6 +10,7 @@ class Spider {
         this.current_page = 1;
         this.result_list = [];
         this.maxPage = props.maxPage; // 最大页数
+        this.target_dir = props.target_dir; // cache下的文件夹，需要手动创建
     }
 
     async init() {
@@ -84,7 +85,7 @@ class Spider {
 
     async downLoadPicture(href) {
         try {
-            const target_path = path.resolve(path.dirname('./'), `./cache/${href.split('/').pop()}`);
+            const target_path = path.resolve(path.dirname('./'), `./cache/${this.target_dir}${href.split('/').pop()}`);
             const response = await axios.get(href, {
                 responseType: 'stream'
             });
